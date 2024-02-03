@@ -36,14 +36,15 @@ class ContentHeader extends StatelessWidget {
                     builder: (context, state) {
                       final movieBloc = BlocProvider.of<MovieBloc>(context);
                       if (state is MovieInitialState) {
-                        movieBloc.add(FetchLatestMovieEvent());
+                        movieBloc.add(FetchMoviesEvent());
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (state is MovieLoadedState) {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.network(state.movies[index].posterPath),
+                          child: Image.network(
+                              state.inTheaterMovies[index].posterPath),
                         );
                       } else if (state is MovieLoadingState) {
                         return const Center(

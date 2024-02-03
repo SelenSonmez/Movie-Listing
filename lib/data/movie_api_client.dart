@@ -13,7 +13,6 @@ class MovieApiClient {
       var decodedData = jsonDecode(response.body)['results'] as List;
       List<Content> popularContents = List<Content>.from(
           decodedData.map((model) => Content.fromJson(model)));
-      print("popular" + popularContents[0].movieName);
 
       return popularContents;
     } else {
@@ -28,7 +27,6 @@ class MovieApiClient {
       var decodedData = jsonDecode(response.body)['results'] as List;
       List<Content> nowPlayings = List<Content>.from(
           decodedData.map((model) => Content.fromJson(model)));
-      print("NowPlaying" + nowPlayings[0].movieName);
 
       return nowPlayings;
     } else {
@@ -43,7 +41,6 @@ class MovieApiClient {
       var decodedData = jsonDecode(response.body)['results'] as List;
       List<Content> upcomings = List<Content>.from(
           decodedData.map((model) => Content.fromJson(model)));
-      print("upcoming" + upcomings[0].movieName);
       return upcomings;
     } else {
       throw Exception("Error fetching popular movies");

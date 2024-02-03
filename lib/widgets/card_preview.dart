@@ -27,17 +27,18 @@ class CardPreview extends StatelessWidget {
             bloc: BlocProvider.of<MovieBloc>(context),
             builder: (context, state) {
               if (state is MovieInitialState) {
-                if (title == "Popular") {
-                  print("title popular");
-                  movieBloc.add(FetchPopularMovieEvent());
-                } else {
-                  movieBloc.add(FetchUpcomingMoviesEvent());
-                }
+                movieBloc.add(FetchMoviesEvent());
+
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state is MovieLoadedState) {
-                List<Content> contents = (state).movies;
+                List<Content> contents = [];
+                if (title == "Popular") {
+                  contents = state.popularMovies;
+                } else {
+                  contents = state.upcomingMovies;
+                }
                 return ListView.builder(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding:
@@ -51,9 +52,11 @@ class CardPreview extends StatelessWidget {
                       children: [
                         GestureDetector(
                           // onTap: () => print(content.movieName),
+                          // child: Text(currentContent.movieName)
                           child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(currentContent.posterPath)),
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(currentContent.posterPath),
+                          ),
                         ),
                       ],
                     );
